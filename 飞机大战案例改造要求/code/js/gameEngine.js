@@ -2,7 +2,7 @@
 
 
 //游戏引擎
-var gameEngine = {
+let gameEngine = {
 	
 	//属性ele: 游戏主界面
 	ele: null,
@@ -19,7 +19,7 @@ var gameEngine = {
 	},
 	
 	//方法start: 开始游戏
-	start: function(){
+	start: ()=>{
 		console.log("开始游戏");
 		
 		//加载游戏
@@ -51,19 +51,19 @@ var gameEngine = {
 	//加载游戏
 	loadding: function(callback){
 		//logo
-		var logo = document.createElement("div");
+		let logo = document.createElement("div");
 		logo.className = "logo";
 		gameEngine.ele.appendChild(logo);
 		
 		//load
-		var load = document.createElement("div");
+		let load = document.createElement("div");
 		load.className = "load";
 		gameEngine.ele.appendChild(load);
 		
 		//动画
-		var imgs = ["images2/loading1.png", "images2/loading2.png", "images2/loading3.png"];
-		var i = 0;
-		var timer = setInterval(function(){
+		var [imgs,i] = [["images2/loading1.png", "images2/loading2.png", "images2/loading3.png"],0];
+		
+		let timer = setInterval(function(){
 			if (i >= 5){
 				clearInterval(timer); //停止动画
 				gameEngine.ele.removeChild(logo);
@@ -82,8 +82,8 @@ var gameEngine = {
 	//监听键盘
 	listeningKeybord: function(){
 		
-		var xSpeed = 0;
-		var ySpeed = 0;
+		let [xSpeed,ySpeed] = [0,0];
+		
 		window.onkeydown = function(e){
 			e = e || event;
 			if (e.keyCode == 37){ //左
@@ -104,7 +104,7 @@ var gameEngine = {
 			ySpeed = 0;
 		}
 		setInterval(function(){
-			var x = myPlane.ele.offsetLeft + xSpeed;
+			let x = myPlane.ele.offsetLeft + xSpeed;
 			if (x < 0) {x = 0;}
 			if (x > gameEngine.ele.offsetWidth-myPlane.ele.offsetWidth) {
 				x = gameEngine.ele.offsetWidth-myPlane.ele.offsetWidth
@@ -120,27 +120,27 @@ var gameEngine = {
 		
 		//随机创建小型飞机
 		setInterval(function(){
-			var flag = Math.random()>0.4 ? true : false;
+			let flag = Math.random()>0.4 ? true : false;
 			if (flag) {
-				var enemy = new Enemy(Enemy.prototype.Enemy_Type_Small);
+				let enemy = new Enemy(Enemy.prototype.Enemy_Type_Small);
 				enemy.init().move();
 			}
 		}, 1000);
 		
 		//随机创建中型飞机
 		setInterval(function(){
-			var flag = Math.random()>0.6 ? true : false;
+			let flag = Math.random()>0.6 ? true : false;
 			if (flag) {
-				var enemy = new Enemy(Enemy.prototype.Enemy_Type_Middle);
+				let enemy = new Enemy(Enemy.prototype.Enemy_Type_Middle);
 				enemy.init().move();
 			}
 		}, 2000);
 		
 		//随机创建小型飞机
 		setInterval(function(){
-			var flag = Math.random()>0.5 ? true : false;
+			let flag = Math.random()>0.5 ? true : false;
 			if (flag) {
-				var enemy = new Enemy(Enemy.prototype.Enemy_Type_Large);
+				let enemy = new Enemy(Enemy.prototype.Enemy_Type_Large);
 				enemy.init().move();
 			}
 		}, 8000);
@@ -150,12 +150,12 @@ var gameEngine = {
 	//碰撞检测
 	listeningCrash: function(){
 		
-		var isCrashMyPlane = false; //表示是否碰撞到我的飞机
+		let isCrashMyPlane = false; //表示是否碰撞到我的飞机
 		setInterval(function(){
 			
-			for (var i in gameEngine.allEnemy) { //遍历所有页面上的敌机
+			for (let i in gameEngine.allEnemy) { //遍历所有页面上的敌机
 				
-				for (var j in gameEngine.allBullet) { //遍历所有页面上的子弹
+				for (let j in gameEngine.allBullet) { //遍历所有页面上的子弹
 					
 					//如果某个子弹和某个敌机发生了碰撞
 					if ( isCrash(gameEngine.allEnemy[i].ele, gameEngine.allBullet[j].ele) ) {
@@ -178,7 +178,7 @@ var gameEngine = {
 					console.log("Game Over");
 					
 					
-					var myName = prompt("您的总分数是:"+ gameEngine.totalScore +", 请输入您的大名");
+					let myName = prompt("您的总分数是:"+ gameEngine.totalScore +", 请输入您的大名");
 					if (myName) {
 						//点击了确定
 						ajax({
@@ -215,7 +215,7 @@ var gameEngine = {
 	
 	//移动背景图
 	moveBackground: function(){
-		var y = 0;
+		let y = 0;
 		setInterval(function(){
 			gameEngine.ele.style.backgroundPositionY = y++ + "px";
 		}, 30);

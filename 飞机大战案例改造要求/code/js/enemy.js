@@ -60,9 +60,9 @@ function Enemy(type){
 	
 	//move
 	this.move = function(){
-		var that = this;
+		let that = this;
 		this.timer = setInterval(function(){
-			var y = that.ele.offsetTop + that.speed;
+			let y = that.ele.offsetTop + that.speed;
 			if (y > gameEngine.ele.offsetHeight) {
 				clearInterval(that.timer); //停止移动	
 				gameEngine.ele.removeChild(that.ele); //移除敌机
@@ -87,12 +87,12 @@ function Enemy(type){
 	}
 	
 	//爆炸
-	this.boom = function(){
+	this.boom = ()=>{
 		clearInterval(this.timer); //停止移动
 		
-		var that = this;
-		var i = 0;
-		var dieTimer = setInterval(function(){
+		let that = this;
+		let i = 0;
+		let dieTimer = setInterval(function(){
 			if (i >= that.dieImgs.length){
 				clearInterval(dieTimer); //停止爆炸
 				gameEngine.ele.removeChild(that.ele); //移除敌机
